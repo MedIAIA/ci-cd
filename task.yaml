@@ -1,0 +1,34 @@
+---
+- name: Install git
+  apt:
+    name: git
+    state: present
+  become: yes
+
+- name: Clone the git repository
+  git:
+    repo: 'https://your_git_repo_url.git'
+    dest: /tmp/repo
+    version: your_branch_name
+
+- name: Create target directory
+  file:
+    path: /destination/path/on/remote/
+    state: directory
+
+- name: Copy specific folder to target directory
+  command: cp -r /tmp/repo/path/to/folder /destination/path/on/remote/
+  args:
+    removes: /tmp/repo/path/to/folder
+
+- name: Archive the folder into tar.gz
+  archive:
+    path: /destination/path/on/remote/folder
+    dest: /destination/path/on/remote/folder.tar.gz
+    format: gz
+
+- name: Clean up repository
+  file:
+    path: /tmp/repo
+    state: absent
+  become: yes

@@ -1,0 +1,5 @@
+
+Install the latest Weekly version: brew install jenkins
+Start the Jenkins service: brew services start jenkins
+Restart the Jenkins service: brew services restart jenkins
+Update the Jenkins version: brew upgrade jenkins

@@ -1,0 +1,9 @@
+personne: 
+  - name: med
+  - profession: devops
+  - mail: med@exempale.com
+
+tech : []
+
+hobies : 
+  - sport : {football , handball , }

@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Nom de la branche à récupérer')
+        string(name: 'FOLDER_NAME', defaultValue: 'your-folder', description: 'Nom du dossier à archiver')
+    }
+    
+    environment {
+        ARCHIVE_NAME = "${params.FOLDER_NAME}.tar.gz"
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Récupère la branche spécifiée
+                git branch: "${params.BRANCH_NAME}", url: 'https://your.git.repo.url'
+            }
+        }
+        
+        stage('Archive Folder') {
+            steps {
+                script {
+                    // Archive le dossier spécifié en .tar.gz
+                    sh """
+                    tar -czf ${env.ARCHIVE_NAME} ${params.FOLDER_NAME}
+                    """
+                }
+            }
+        }
+        
+        stage('Save Archive') {
+            steps {
+                // Archive l'archive .tar.gz dans Jenkins
+                archiveArtifacts artifacts: "${env.ARCHIVE_NAME}", allowEmptyArchive: false
+            }
+        }
+    }
+    
+    post {
+        always {
+            // Clean up workspace
+            cleanWs()
+        }
+    }
+}
