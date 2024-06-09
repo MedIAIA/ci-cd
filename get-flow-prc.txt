@@ -1,4 +1,4 @@
 les etapes pour le gitflow :
 - git flow init
 - create feature 
-
+- finish feature 
