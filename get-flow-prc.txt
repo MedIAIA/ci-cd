@@ -1,2 +1,2 @@
 les etapes pour le gitflow :
-- git flow init 
+- git flow init
